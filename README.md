@@ -6,7 +6,7 @@ WanderLust is a simple MERN travel blog website ✈ This project is aimed to hel
 
 ## [Figma Design File](https://www.figma.com/file/zqNcWGGKBo5Q2TwwVgR6G5/WanderLust--A-Travel-Blog-App?type=design&node-id=0%3A1&mode=design&t=c4oCG8N1Fjf7pxTt-1)
 ## [Discord Channel](https://discord.gg/FEKasAdCrG)
-
+## check our first commit
 ## 🎯 Goal of this project
 
 At its core, this project embodies two important aims:
