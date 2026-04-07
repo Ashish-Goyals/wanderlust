@@ -11,12 +11,11 @@ COPY package*.json ./
 # Install required dependencies
 RUN npm install
 
-# Run test
-
-RUN npm run test
-
 # Copy the rest of the application code to the working directory
 COPY . .
+
+# Run test
+RUN npm run test
 
 
 FROM node:21-slim

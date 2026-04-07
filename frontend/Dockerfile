@@ -4,11 +4,9 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm i
 
+COPY . .
 
 RUN npm run test
-
-
-COPY . .
 
 FROM node:21-slim
 

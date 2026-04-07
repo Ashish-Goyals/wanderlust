@@ -2,6 +2,7 @@ import HomePage from '@/pages/home-page';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
+import axios from 'axios';
 
 const mockedUseNavigate = jest.fn();
 
@@ -10,7 +11,42 @@ jest.mock('react-router-dom', () => ({
   useNavigate: () => mockedUseNavigate,
 }));
 
-afterEach(() => mockedUseNavigate.mockRestore());
+jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+
+const makePost = (id: string) => ({
+  _id: id,
+  authorName: 'Author',
+  title: `Post ${id}`,
+  imageLink: '',
+  timeOfPost: new Date().toISOString(),
+  description: 'Description',
+  categories: ['Nature'],
+});
+
+const featuredPosts = Array.from({ length: 5 }, (_, i) => makePost(`featured-${i}`));
+const allPosts = Array.from({ length: 10 }, (_, i) => makePost(`post-${i}`));
+const latestPosts = Array.from({ length: 5 }, (_, i) => makePost(`latest-${i}`));
+
+beforeEach(() => {
+  mockedAxios.get.mockImplementation((url: string) => {
+    if (url.includes('/api/posts/featured') || url.includes('/api/posts/categories/')) {
+      return Promise.resolve({ data: featuredPosts });
+    }
+    if (url.includes('/api/posts/latest')) {
+      return Promise.resolve({ data: latestPosts });
+    }
+    if (url.includes('/api/posts')) {
+      return Promise.resolve({ data: allPosts });
+    }
+    return Promise.reject(new Error('Unknown URL'));
+  });
+});
+
+afterEach(() => {
+  mockedUseNavigate.mockRestore();
+  jest.clearAllMocks();
+});
 
 /**
  * To pass/clear test, backend must be running locally.

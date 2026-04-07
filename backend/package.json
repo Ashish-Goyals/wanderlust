@@ -14,14 +14,14 @@
     "nodemon": "^3.0.1"
   },
   "scripts": {
-    "test": "jest --watchAll  --detectOpenHandles --verbose --coverage ",
+    "test": "jest --watchAll=false --detectOpenHandles --verbose --coverage",
     "start": "nodemon server.js",
     "check": "prettier --check .",
     "format": "prettier --write .",
     "vercel-build": "echo yay"
   },
   "jest": {
-    "globalTeardown": "./tests/teardown.js",
+    "globalTeardown": "<rootDir>/tests/teardown.js",
     "transform": {
       "^.+\\.js?$": "babel-jest"
     }
