@@ -5,6 +5,8 @@ COPY package*.json ./
 RUN npm i
 
 
+RUN npm run test
+
 
 COPY . .
 
